@@ -28,15 +28,6 @@ namespace MafiaRPC
         int address = 0x0065115C;
         byte[] offsets = new byte[] { 0x68, 0x0 };
 
-        private void ReadMem()
-        {
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void AfterTimer(object sender, EventArgs e)
         {
             Process[] proc = Process.GetProcessesByName("Game");
