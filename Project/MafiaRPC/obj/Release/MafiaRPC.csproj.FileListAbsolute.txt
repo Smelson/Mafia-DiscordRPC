@@ -1,0 +1,11 @@
+E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Release\MafiaRPC.exe.config
+E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Release\MafiaRPC.exe
+E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Release\MafiaRPC.pdb
+E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Release\VAMemory.dll
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.Form1.resources
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.Properties.Resources.resources
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csproj.GenerateResource.cache
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csproj.CoreCompileInputs.cache
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csproj.CopyComplete
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.exe
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.pdb

@@ -1,15 +1,8 @@
 ﻿using MafiaRPC.DiscordRpcDemo;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
+using System.IO;
 
 namespace MafiaRPC
 {
@@ -19,13 +12,31 @@ namespace MafiaRPC
         private DiscordRpc.RichPresence presence;
         private long time = DateTimeOffset.Now.ToUnixTimeSeconds();
 
+        private int hp;
+        private int gun;
+        private string mission;
+
+        private string MAFIA_VERSION;
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        //1.0--------------------------------------------------
         private IntPtr baseAddressMission = (IntPtr)0x0065115C;
         private IntPtr baseAddressGun = (IntPtr)0x006F9464;
+        //-----------------------------------------------------
+        
+        //1.1-------------------------------------------------
+        private IntPtr baseAddressMission11 = (IntPtr)0x00646D90;
+        private IntPtr baseAddressGun11 = (IntPtr)0x00646D4C;
+        //----------------------------------------------------
+
+        //1.2----------------------------------------------------
+        private IntPtr baseAddressMission12 = (IntPtr)0x0063788C;
+        private IntPtr baseAddressGun12 = (IntPtr)0x00647E1C;
+        //-------------------------------------------------------
 
         private void AfterTimer(object sender, EventArgs e)
         {
@@ -33,6 +44,65 @@ namespace MafiaRPC
         }
 
         private void ReadMafia()
+        {
+            Process[] processlist = Process.GetProcessesByName("Game");
+
+            if (processlist.Length != 0)
+            {
+
+                String result = ":(";
+                foreach (Process p in processlist)
+                {
+                    result = p.MainModule.FileName;
+                    break;
+                }
+
+                if (result.Contains("Game.exe"))
+                {
+                    result = result.Remove(result.IndexOf("Game.exe"));
+                    result = result + "log.txt";
+                    string log = File.ReadAllText(result);
+
+                    if (log.Contains("GetVer:384"))
+                    {
+                        MAFIA_VERSION = "1.0.";
+                        Mafia10();
+                    }
+
+                    if (log.Contains("GetVer:393"))
+                    {
+                        MAFIA_VERSION = "1.1.";
+                        Mafia11();
+                    }
+
+                    if (log.Contains("GetVer:395"))
+                    {
+                        MAFIA_VERSION = "1.2.";
+                        Mafia12();
+                    }
+                }
+
+                else
+                {
+                    timer1.Stop();
+                    MessageBox.Show("Wrong path to the game", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    label1.Text = string.Empty;
+                    button1.Text = "Activate";
+                    DiscordRpc.Shutdown();
+                }
+            }
+
+            else
+            {
+                timer1.Stop();
+                MessageBox.Show("Wrong path to the game", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label1.Text = string.Empty;
+                button1.Text = "Activate";
+                DiscordRpc.Shutdown();
+            }
+        }
+
+        private void Mafia10()
         {
             Process[] proc = Process.GetProcessesByName("Game");
 
@@ -58,11 +128,9 @@ namespace MafiaRPC
                 baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xE4);
                 baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xAF0);
 
-                int hp = memory.ReadInt32((IntPtr)0x00661538);
-                int bullets = memory.ReadInt32((IntPtr)0x0066153C);
-                int ammo = memory.ReadInt32((IntPtr)0x0066153C);
-                string mission = memory.ReadStringASCII(baseAddressMission, 20);
-                int gun = memory.ReadInt32((IntPtr)baseAddressGun);
+                hp = memory.ReadInt32((IntPtr)0x00661538);
+                mission = memory.ReadStringASCII(baseAddressMission, 20);
+                gun = memory.ReadInt32((IntPtr)baseAddressGun);
 
 
                 //-----------------------------------------------------------------------------------
@@ -73,10 +141,105 @@ namespace MafiaRPC
                 this.presence.state = hp.ToString() + " HP";
                 this.presence.startTimestamp = time;
                 this.presence.endTimestamp = 0;
-    
-                // CHECK GUN
+                switches();
+            }
+        }
+
+        private void Mafia11()
+        {
+            Process[] proc = Process.GetProcessesByName("Game");
+
+            if (proc.Length != 0)
+            {
+                VAMemory memory = new VAMemory("Game");
+
+                this.handlers = default(DiscordRpc.EventHandlers);
+                DiscordRpc.Initialize("747679968389234783", ref this.handlers, true, null);
+                this.handlers = default(DiscordRpc.EventHandlers);
+                DiscordRpc.Initialize("747679968389234783", ref this.handlers, true, null);
+                this.presence.largeImageKey = "mafia";
+                this.presence.largeImageText = "Mafia";
+
+                // READ ADDRESSES WITH POINTERS
                 //-----------------------------------------------------------------------------------
 
+                baseAddressMission11 = (IntPtr)0x00646D90;
+                baseAddressMission11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressMission11), 0x0);
+
+                baseAddressGun11 = (IntPtr)0x00646D4C;
+                baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xE4);
+                baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xAF0);
+
+                hp = memory.ReadInt32((IntPtr)0x006C2AC0);
+                mission = memory.ReadStringASCII(baseAddressMission11, 20);
+                gun = memory.ReadInt32((IntPtr)baseAddressGun11);
+
+
+                //-----------------------------------------------------------------------------------
+
+                mission = mission.Remove(mission.IndexOf("\0"));
+                this.presence.details = mission;
+                int l = this.presence.details.Length;
+                this.presence.state = hp.ToString() + " HP";
+                this.presence.startTimestamp = time;
+                this.presence.endTimestamp = 0;
+                switches();
+            }
+        }
+
+        private void Mafia12()
+        {
+            Process[] proc = Process.GetProcessesByName("Game");
+
+            if (proc.Length != 0)
+            {
+                VAMemory memory = new VAMemory("Game");
+
+                this.handlers = default(DiscordRpc.EventHandlers);
+                DiscordRpc.Initialize("747679968389234783", ref this.handlers, true, null);
+                this.handlers = default(DiscordRpc.EventHandlers);
+                DiscordRpc.Initialize("747679968389234783", ref this.handlers, true, null);
+                this.presence.largeImageKey = "mafia";
+                this.presence.largeImageText = "Mafia";
+
+                // READ ADDRESSES WITH POINTERS
+                //-----------------------------------------------------------------------------------
+
+                baseAddressMission12 = (IntPtr)0x0063788C;
+                baseAddressMission12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressMission12), 0x68);
+                baseAddressMission12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressMission12), 0x0);
+
+                baseAddressGun12 = (IntPtr)0x00647E1C;
+                baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xE4);
+                baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xAF0);
+
+                hp = memory.ReadInt32((IntPtr)0x006C3B90);
+                mission = memory.ReadStringASCII(baseAddressMission12, 20);
+                gun = memory.ReadInt32((IntPtr)baseAddressGun12);
+
+
+                //-----------------------------------------------------------------------------------
+
+                mission = mission.Remove(mission.IndexOf("\0"));
+                this.presence.details = mission;
+                int l = this.presence.details.Length;
+                this.presence.state = hp.ToString() + " HP";
+                this.presence.startTimestamp = time;
+                this.presence.endTimestamp = 0;
+                switches();
+            }
+        }
+
+        private void switches()
+        {
+            Process[] proc = Process.GetProcessesByName("Game");
+
+            if (proc.Length != 0)
+            {
+                VAMemory memory = new VAMemory("Game");
+
+                // CHECK GUN
+                //-----------------------------------------------------------------------------------
                 switch (gun)
                 {
                     case 0:
@@ -789,9 +952,8 @@ namespace MafiaRPC
                     this.presence.state = "Dead";
                 }
 
-
-                //int gun = memory.ReadInt32((IntPtr)baseAddressGun);
                 this.presence.smallImageText = "Mafia";
+                label1.Text = "Mafia process found! Your game version is " + MAFIA_VERSION;
                 DiscordRpc.UpdatePresence(ref this.presence);
             }
 
@@ -814,7 +976,6 @@ namespace MafiaRPC
             Process[] proc = Process.GetProcessesByName("Game");
             if (proc.Length != 0)
             {
-                label1.Text = "Mafia process found!";
                 button1.Text = "Refresh";
                 time = DateTimeOffset.Now.ToUnixTimeSeconds();
                 timer1.Interval = 1;
