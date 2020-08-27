@@ -65,19 +65,19 @@ namespace MafiaRPC
 
                     if (log.Contains("GetVer:384"))
                     {
-                        MAFIA_VERSION = "1.0.";
+                        MAFIA_VERSION = "1.0";
                         Mafia10();
                     }
 
                     if (log.Contains("GetVer:393"))
                     {
-                        MAFIA_VERSION = "1.1.";
+                        MAFIA_VERSION = "1.1";
                         Mafia11();
                     }
 
                     if (log.Contains("GetVer:395"))
                     {
-                        MAFIA_VERSION = "1.2.";
+                        MAFIA_VERSION = "1.2";
                         Mafia12();
                     }
                 }
@@ -384,11 +384,17 @@ namespace MafiaRPC
 
                 switch (mission)
                 {
+                    case "":
+                        this.presence.details = string.Empty;
+                        this.presence.state = string.Empty;
+                        break;
+
                     case "00menu":
                         this.presence.details = "In Main Menu";
                         this.presence.largeImageKey = "00menu";
                         this.presence.largeImageText = "In Main Menu";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "autosalon":
@@ -396,6 +402,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "carcyklopedia";
                         this.presence.largeImageText = "Carcyclopedia";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "carcyclopedia":
@@ -403,6 +410,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "carcyklopedia";
                         this.presence.largeImageText = "Carcyclopedia";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "extreme":
@@ -452,6 +460,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Intro";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "intermezzo02":
@@ -459,6 +468,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Intermezzo-1";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "intermezzo03":
@@ -466,6 +476,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Intermezzo-2";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "intermezzo4":
@@ -473,6 +484,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Intermezzo-3";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "fmv intermezzo05":
@@ -480,6 +492,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Intermezzo-4";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "fmv konec":
@@ -487,6 +500,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Epilogue";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "FMV KONEC":
@@ -494,6 +508,7 @@ namespace MafiaRPC
                         this.presence.largeImageKey = "intermezzo";
                         this.presence.largeImageText = "Epilogue";
                         this.presence.smallImageKey = "mafia";
+                        this.presence.state = string.Empty;
                         break;
 
                     case "mise01":
@@ -952,7 +967,7 @@ namespace MafiaRPC
                     this.presence.state = "Dead";
                 }
 
-                this.presence.smallImageText = "Mafia";
+                this.presence.smallImageText = "Mafia " + MAFIA_VERSION;
                 label1.Text = "Mafia process found! Your game version is " + MAFIA_VERSION;
                 DiscordRpc.UpdatePresence(ref this.presence);
             }
@@ -978,7 +993,7 @@ namespace MafiaRPC
             {
                 button1.Text = "Refresh";
                 time = DateTimeOffset.Now.ToUnixTimeSeconds();
-                timer1.Interval = 1;
+                timer1.Interval = 150;
                 timer1.Tick += new EventHandler(AfterTimer);
                 timer1.Start();
             }
