@@ -14,7 +14,6 @@ E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Debug\MafiaRPC.exe.config
 E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Debug\MafiaRPC.exe
 E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Debug\MafiaRPC.pdb
 E:\Mafia-DiscordRPC\Project\MafiaRPC\bin\Debug\VAMemory.dll
-E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csprojAssemblyReference.cache
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.Form1.resources
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.Properties.Resources.resources
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csproj.GenerateResource.cache
@@ -22,3 +21,4 @@ E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csproj.CoreCompileInputs
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csproj.CopyComplete
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.exe
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.pdb
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csprojAssemblyReference.cache
