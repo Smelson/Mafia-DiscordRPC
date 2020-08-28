@@ -15,6 +15,7 @@ namespace MafiaRPC
         private int hp;
         private int gun;
         private string mission;
+        private int IsLoading;
 
         private string MAFIA_VERSION;
 
@@ -131,13 +132,11 @@ namespace MafiaRPC
                 hp = memory.ReadInt32((IntPtr)0x00661538);
                 mission = memory.ReadStringASCII(baseAddressMission, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun);
-
+                IsLoading = memory.ReadInt32((IntPtr)0x006F94BC);
 
                 //-----------------------------------------------------------------------------------
 
                 mission = mission.Remove(mission.IndexOf("\0"));
-                this.presence.details = mission;
-                int l = this.presence.details.Length;
                 this.presence.state = hp.ToString() + " HP";
                 this.presence.startTimestamp = time;
                 this.presence.endTimestamp = 0;
@@ -178,8 +177,6 @@ namespace MafiaRPC
                 //-----------------------------------------------------------------------------------
 
                 mission = mission.Remove(mission.IndexOf("\0"));
-                this.presence.details = mission;
-                int l = this.presence.details.Length;
                 this.presence.state = hp.ToString() + " HP";
                 this.presence.startTimestamp = time;
                 this.presence.endTimestamp = 0;
@@ -221,8 +218,6 @@ namespace MafiaRPC
                 //-----------------------------------------------------------------------------------
 
                 mission = mission.Remove(mission.IndexOf("\0"));
-                this.presence.details = mission;
-                int l = this.presence.details.Length;
                 this.presence.state = hp.ToString() + " HP";
                 this.presence.startTimestamp = time;
                 this.presence.endTimestamp = 0;
@@ -1011,6 +1006,11 @@ namespace MafiaRPC
         {
             DiscordRpc.Shutdown();
             Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Powered by Smelson and Legion (C) 2020! From Russia With Love", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
