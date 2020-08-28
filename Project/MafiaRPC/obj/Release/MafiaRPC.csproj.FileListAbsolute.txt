@@ -9,3 +9,4 @@ E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csproj.CoreCompileInpu
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csproj.CopyComplete
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.exe
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.pdb
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Release\MafiaRPC.csprojAssemblyReference.cache

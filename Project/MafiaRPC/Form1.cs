@@ -15,8 +15,7 @@ namespace MafiaRPC
         private int hp;
         private int gun;
         private string mission;
-        private int IsLoading;
-
+        private int CarcyclopediaID;
         private string MAFIA_VERSION;
 
         public Form1()
@@ -27,16 +26,19 @@ namespace MafiaRPC
         //1.0--------------------------------------------------
         private IntPtr baseAddressMission = (IntPtr)0x0065115C;
         private IntPtr baseAddressGun = (IntPtr)0x006F9464;
+        private IntPtr baseAddressCar = (IntPtr)0x0067A4D8;
         //-----------------------------------------------------
-        
+
         //1.1-------------------------------------------------
         private IntPtr baseAddressMission11 = (IntPtr)0x00646D90;
         private IntPtr baseAddressGun11 = (IntPtr)0x00646D4C;
+        private IntPtr baseAddressCar11 = (IntPtr)0x006BC7C0;
         //----------------------------------------------------
 
         //1.2----------------------------------------------------
         private IntPtr baseAddressMission12 = (IntPtr)0x0063788C;
         private IntPtr baseAddressGun12 = (IntPtr)0x00647E1C;
+        private IntPtr baseAddressCar12 = (IntPtr)0x006BD890;
         //-------------------------------------------------------
 
         private void AfterTimer(object sender, EventArgs e)
@@ -129,10 +131,13 @@ namespace MafiaRPC
                 baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xE4);
                 baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xAF0);
 
+                baseAddressCar = (IntPtr)0x0067A4D8;
+                baseAddressCar = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar), 0x48);
+
                 hp = memory.ReadInt32((IntPtr)0x00661538);
                 mission = memory.ReadStringASCII(baseAddressMission, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun);
-                IsLoading = memory.ReadInt32((IntPtr)0x006F94BC);
+                CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar);
 
                 //-----------------------------------------------------------------------------------
 
@@ -169,10 +174,13 @@ namespace MafiaRPC
                 baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xE4);
                 baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xAF0);
 
+                baseAddressCar11 = (IntPtr)0x006BC7C0;
+                baseAddressCar11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar11), 0x30);
+
                 hp = memory.ReadInt32((IntPtr)0x006C2AC0);
                 mission = memory.ReadStringASCII(baseAddressMission11, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun11);
-
+                CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar11);
 
                 //-----------------------------------------------------------------------------------
 
@@ -210,10 +218,13 @@ namespace MafiaRPC
                 baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xE4);
                 baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xAF0);
 
+                baseAddressCar12 = (IntPtr)0x006BD890;
+                baseAddressCar12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar12), 0x30);
+
                 hp = memory.ReadInt32((IntPtr)0x006C3B90);
                 mission = memory.ReadStringASCII(baseAddressMission12, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun12);
-
+                CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar12);
 
                 //-----------------------------------------------------------------------------------
 
@@ -954,6 +965,242 @@ namespace MafiaRPC
                         this.presence.smallImageKey = "mafia";
                         break;
                 }
+
+                //CARCYCLOPEDIA CARS
+
+                    if (mission == "carcyclopedia" || mission == "autosalon")
+                    {
+                        switch (CarcyclopediaID)
+                        {
+                        case 0:
+                            this.presence.state = "Lookin' at Bolt Ace Tudor";
+                            break;
+
+                        case 1:
+                            this.presence.state = "Lookin' at Bolt Ace Touring";
+                            break;
+
+                        case 2:
+                            this.presence.state = "Lookin' at Bolt Ace Runabout";
+                            break;
+
+                        case 3:
+                            this.presence.state = "Lookin' at Bolt Ace Pickup";
+                            break;
+
+                        case 4:
+                            this.presence.state = "Lookin' at Bolt Ace Fordor";
+                            break;
+
+                        case 5:
+                            this.presence.state = "Lookin' at Bolt Ace Coupe";
+                            break;
+
+                        case 6:
+                            this.presence.state = "Lookin' at Bolt Model B Tudor";
+                            break;
+
+                        case 7:
+                            this.presence.state = "Lookin' at Bolt Model B Roadster";
+                            break;
+
+                        case 8:
+                            this.presence.state = "Lookin' at Bolt Model B Pickup";
+                            break;
+
+                        case 9:
+                            this.presence.state = "Lookin' at Bolt Model B Fordor";
+                            break;
+
+                        case 10:
+                            this.presence.state = "Lookin' at Bolt Model B Deliviry";
+                            break;
+
+                        case 11:
+                            this.presence.state = "Lookin' at Bolt Model B Coupe";
+                            break;
+
+                        case 12:
+                            this.presence.state = "Lookin' at Bolt Model B Cabriolet";
+                            break;
+
+                        case 13:
+                            this.presence.state = "Lookin' at Schubert Six";
+                            break;
+
+                        case 14:
+                            this.presence.state = "Lookin' at Bolt V8 Coupe";
+                            break;
+
+                        case 15:
+                            this.presence.state = "Lookin' at Bolt V8 Fordor";
+                            break;
+
+                        case 16:
+                            this.presence.state = "Lookin' at Bolt V8 Roadster";
+                            break;
+
+                        case 17:
+                            this.presence.state = "Lookin' at Bolt V8 Touring";
+                            break;
+
+                        case 18:
+                            this.presence.state = "Lookin' at Bolt V8 Tudor";
+                            break;
+
+                        case 19:
+                            this.presence.state = "Lookin' at Schubert Extra Six Fordor";
+                            break;
+
+                        case 20:
+                            this.presence.state = "Lookin' at Schubert Extra Six Tudor";
+                            break;
+
+                        case 21:
+                            this.presence.state = "Lookin' at Falconer";
+                            break;
+
+                        case 22:
+                            this.presence.state = "Lookin' at Falconer Yellowcar";
+                            break;
+
+                        case 23:
+                            this.presence.state = "Lookin' at Crusader Chromium Fordor";
+                            break;
+
+                        case 24:
+                            this.presence.state = "Lookin' at Crusader Chromium Tudor";
+                            break;
+
+                        case 25:
+                            this.presence.state = "Lookin' at Guardian Terraplane Coupe";
+                            break;
+
+                        case 26:
+                            this.presence.state = "Lookin' at Guardian Terraplane Fordor";
+                            break;
+
+                        case 27:
+                            this.presence.state = "Lookin' at Guardian Terraplane Tudor";
+                            break;
+
+                        case 28:
+                            this.presence.state = "Lookin' at Thor 812 Cabriolet FWD";
+                            break;
+
+                        case 29:
+                            this.presence.state = "Lookin' at Thor 812 Phaeton FWD";
+                            break;
+
+                        case 30:
+                            this.presence.state = "Lookin' at Thor 810 Sedan FWD";
+                            break;
+
+                        case 31:
+                            this.presence.state = "Lookin' at Wright Coupe";
+                            break;
+
+                        case 32:
+                            this.presence.state = "Lookin' at Wright Fordor";
+                            break;
+
+                        case 33:
+                            this.presence.state = "Lookin' at Bruno Speedster 851";
+                            break;
+
+                        case 34:
+                            this.presence.state = "Lookin' at Celeste Marque 500";
+                            break;
+
+                        case 35:
+                            this.presence.state = "Lookin' at Lassiter V16 Fordor";
+                            break;
+
+                        case 36:
+                            this.presence.state = "Lookin' at Lassiter V16 Phaeton";
+                            break;
+
+                        case 37:
+                            this.presence.state = "Lookin' at Lassiter V16 Roadster";
+                            break;
+
+                        case 38:
+                            this.presence.state = "Lookin' at Silver Fletcher";
+                            break;
+
+                        case 39:
+                            this.presence.state = "Lookin' at Lassiter V16 Appolyon";
+                            break;
+
+                        case 40:
+                            this.presence.state = "Lookin' at Trautenberg Model J";
+                            break;
+
+                        case 41:
+                            this.presence.state = "Lookin' at Carrozella C-Otto 4WD";
+                            break;
+
+                        case 42:
+                            this.presence.state = "Lookin' at Brubaker 4WD";
+                            break;
+
+                        case 43:
+                            this.presence.state = "Lookin' at Trautenberg Racer 4WD";
+                            break;
+
+                        case 44:
+                            this.presence.state = "Lookin' at Caesar 8C Monstro";
+                            break;
+
+                        case 45:
+                            this.presence.state = "Lookin' at Bolt Ambulance";
+                            break;
+
+                        case 46:
+                            this.presence.state = "Lookin' at Bolt Firetruck";
+                            break;
+
+                        case 47:
+                            this.presence.state = "Lookin' at Bolt Hearse";
+                            break;
+
+                        case 48:
+                            this.presence.state = "Lookin' at Lassiter V16 Charon";
+                            break;
+
+                        case 49:
+                            this.presence.state = "Lookin' at Ulver Airstream Fordor";
+                            break;
+
+                        case 50:
+                            this.presence.state = "Lookin' at Ulver Airstream Tudor";
+                            break;
+
+                        case 51:
+                            this.presence.state = "Lookin' at Lassiter V16 Police";
+                            break;
+
+                        case 52:
+                            this.presence.state = "Lookin' at Schubert Six Police";
+                            break;
+
+                        case 53:
+                            this.presence.state = "Lookin' at Schubert Extra 6 Police Fordor";
+                            break;
+
+                        case 54:
+                            this.presence.state = "Lookin' at Schubert Extra 6 Police Tudor";
+                            break;
+
+                        case 55:
+                            this.presence.state = "Lookin' at Caesar 8C 2300 Racing";
+                            break;
+
+                        default:
+                            this.presence.state = "Lookin' at unknown car, huh";
+                            break;
+                        }
+                    }
 
                 //-----------------------------------------------------------------------------------
 

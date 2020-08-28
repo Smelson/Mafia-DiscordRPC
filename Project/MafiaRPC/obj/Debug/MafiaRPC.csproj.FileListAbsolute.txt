@@ -21,3 +21,4 @@ E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csproj.CoreCompileInputs
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csproj.CopyComplete
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.exe
 E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.pdb
+E:\Mafia-DiscordRPC\Project\MafiaRPC\obj\Debug\MafiaRPC.csprojAssemblyReference.cache
