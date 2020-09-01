@@ -129,7 +129,7 @@ namespace MafiaRPC
 
                 baseAddressGun = (IntPtr)0x006F9464;
                 baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xE4);
-                baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0xAF0);
+                baseAddressGun = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun), 0x4A0);
 
                 baseAddressCar = (IntPtr)0x0067A4D8;
                 baseAddressCar = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar), 0x48);
@@ -172,7 +172,7 @@ namespace MafiaRPC
 
                 baseAddressGun11 = (IntPtr)0x00646D4C;
                 baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xE4);
-                baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0xAF0);
+                baseAddressGun11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun11), 0x4A0);
 
                 baseAddressCar11 = (IntPtr)0x006BC7C0;
                 baseAddressCar11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar11), 0x30);
@@ -216,7 +216,7 @@ namespace MafiaRPC
 
                 baseAddressGun12 = (IntPtr)0x00647E1C;
                 baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xE4);
-                baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0xAF0);
+                baseAddressGun12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressGun12), 0x4A0);
 
                 baseAddressCar12 = (IntPtr)0x006BD890;
                 baseAddressCar12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar12), 0x30);
@@ -246,144 +246,144 @@ namespace MafiaRPC
 
                 // CHECK GUN
                 //-----------------------------------------------------------------------------------
-                switch (gun)
-                {
-                    case 0:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Empty hands";
-                        break;
+                    switch (gun)
+                    {
+                        case 0:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Empty hands";
+                            break;
 
-                    case 1:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Action";
-                        break;
+                        case 1:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Action";
+                            break;
 
-                    case 2:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Knuckle Duster";
-                        break;
+                        case 2:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Knuckle Duster";
+                            break;
 
-                    case 3:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Knife";
-                        break;
+                        case 3:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Knife";
+                            break;
 
-                    case 4:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Baseball bat";
-                        break;
+                        case 4:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Baseball bat";
+                            break;
 
-                    case 5:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Molotov";
-                        break;
+                        case 5:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Molotov";
+                            break;
 
-                    case 6:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Colt Detective Special";
-                        break;
+                        case 6:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Colt Detective Special";
+                            break;
 
-                    case 7:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "S&W 27 Magnum";
-                        break;
+                        case 7:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "S&W 27 Magnum";
+                            break;
 
-                    case 8:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "S&W 10";
-                        break;
+                        case 8:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "S&W 10";
+                            break;
 
-                    case 9:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Colt 1911";
-                        break;
+                        case 9:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Colt 1911";
+                            break;
 
-                    case 10:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Thompson 1928";
-                        break;
+                        case 10:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Thompson 1928";
+                            break;
 
-                    case 11:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Pump-action shotgun";
-                        break;
+                        case 11:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Pump-action shotgun";
+                            break;
 
-                    case 12:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Sawed-off shotgun";
-                        break;
+                        case 12:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Sawed-off shotgun";
+                            break;
 
-                    case 13:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Springfield M1903";
-                        break;
+                        case 13:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Springfield M1903";
+                            break;
 
-                    case 14:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Mosin-Nagant 1891/30";
-                        break;
+                        case 14:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Mosin-Nagant 1891/30";
+                            break;
 
-                    case 15:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Grenade";
-                        break;
+                        case 15:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Grenade";
+                            break;
 
-                    case 16:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Key";
-                        break;
+                        case 16:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Key";
+                            break;
 
-                    case 17:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Bucket";
-                        break;
+                        case 17:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Bucket";
+                            break;
 
-                    case 18:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Flashlight";
-                        break;
+                        case 18:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Flashlight";
+                            break;
 
-                    case 19:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Book/Docs";
-                        break;
+                        case 19:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Book/Docs";
+                            break;
 
-                    case 20:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Bar";
-                        break;
+                        case 20:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Bar";
+                            break;
 
-                    case 21:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Papers";
-                        break;
+                        case 21:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Papers";
+                            break;
 
-                    case 22:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Bomb";
-                        break;
+                        case 22:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Bomb";
+                            break;
 
-                    case 23:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Door keys";
-                        break;
+                        case 23:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Door keys";
+                            break;
 
-                    case 24:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Safe key";
-                        break;
+                        case 24:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Safe key";
+                            break;
 
-                    case 25:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Crowbar";
-                        break;
+                        case 25:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Crowbar";
+                            break;
 
-                    case 26:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Fly tickets";
-                        break;
+                        case 26:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Fly tickets";
+                            break;
 
-                    case 27:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Box";
-                        break;
+                        case 27:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Box";
+                            break;
 
-                    case 28:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Plank";
-                        break;
+                        case 28:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Plank";
+                            break;
 
-                    case 29:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Bottle";
-                        break;
+                        case 29:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Bottle";
+                            break;
 
-                    case 30:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Small key";
-                        break;
+                        case 30:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Small key";
+                            break;
 
-                    case 31:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Sword";
-                        break;
+                        case 31:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Sword";
+                            break;
 
-                    case 32:
-                        this.presence.state = hp.ToString() + " HP" + ", " + "Dog's head";
-                        break;
+                        case 32:
+                            this.presence.state = hp.ToString() + " HP" + ", " + "Dog's head";
+                            break;
 
-                    default:
-                        this.presence.state = hp.ToString() + " HP";
-                        break;
-                }
+                        default:
+                            this.presence.state = hp.ToString() + " HP";
+                            break;
+                    }
 
                 // CHECK MISSION      
                 //-----------------------------------------------------------------------------------
@@ -968,10 +968,10 @@ namespace MafiaRPC
 
                 //CARCYCLOPEDIA CARS
 
-                    if (mission == "carcyclopedia" || mission == "autosalon")
+                if (mission == "carcyclopedia" || mission == "autosalon")
+                {
+                    switch (CarcyclopediaID)
                     {
-                        switch (CarcyclopediaID)
-                        {
                         case 0:
                             this.presence.state = "Lookin' at Bolt Ace Tudor";
                             break;
@@ -1199,8 +1199,8 @@ namespace MafiaRPC
                         default:
                             this.presence.state = "Lookin' at unknown car, huh";
                             break;
-                        }
                     }
+                }
 
                 //-----------------------------------------------------------------------------------
 
@@ -1230,22 +1230,52 @@ namespace MafiaRPC
 
         private void Button()
         {
-            Process[] proc = Process.GetProcessesByName("Game");
-            if (proc.Length != 0)
+            Process[] check = Process.GetProcessesByName("Game");
+            if (check.Length == 0)
             {
-                button1.Text = "Refresh";
-                time = DateTimeOffset.Now.ToUnixTimeSeconds();
-                timer1.Interval = 150;
-                timer1.Tick += new EventHandler(AfterTimer);
-                timer1.Start();
+
+                try
+                {
+                    Process.Start("Game");
+                }
+
+                catch (Exception)
+                {
+                    if (openFileDialog1.ShowDialog() == DialogResult.Cancel) { return; }
+                    string path = openFileDialog1.FileName;
+                    Process.Start(path);
+                }
+
+                Process[] proc = Process.GetProcessesByName("Game");
+                if (proc.Length != 0)
+                {
+
+                    button1.Text = "Refresh";
+                    time = DateTimeOffset.Now.ToUnixTimeSeconds();
+                    timer1.Interval = 150;
+                    timer1.Tick += new EventHandler(AfterTimer);
+                    timer1.Start();
+                }
+
+                else
+                {
+                    label1.Text = "Mafia process not found!";
+                    button1.Text = "Activate";
+                    timer1.Stop();
+                    DiscordRpc.Shutdown();
+                }
             }
 
             else
             {
-                label1.Text = "Mafia process not found!";
-                button1.Text = "Activate";
-                timer1.Stop();
-                DiscordRpc.Shutdown();
+                if (check.Length != 0)
+                {
+                    button1.Text = "Refresh";
+                    time = DateTimeOffset.Now.ToUnixTimeSeconds();
+                    timer1.Interval = 150;
+                    timer1.Tick += new EventHandler(AfterTimer);
+                    timer1.Start();
+                }
             }
         }
 
