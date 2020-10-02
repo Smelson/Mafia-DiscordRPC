@@ -2,7 +2,6 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.IO;
 
 namespace MafiaRPC
 {
@@ -16,6 +15,9 @@ namespace MafiaRPC
         private int gun;
         private string mission;
         private int CarcyclopediaID;
+        private int Camera;
+        private float InCarSpeed;
+        private int InCarSpeedInt;
         private string MAFIA_VERSION;
 
         public Form1()
@@ -27,18 +29,21 @@ namespace MafiaRPC
         private IntPtr baseAddressMission = (IntPtr)0x0065115C;
         private IntPtr baseAddressGun = (IntPtr)0x006F9464;
         private IntPtr baseAddressCar = (IntPtr)0x0067A4D8;
+        private IntPtr baseAddressCamera = (IntPtr)0x6F94640;
         //-----------------------------------------------------
 
         //1.1-------------------------------------------------
         private IntPtr baseAddressMission11 = (IntPtr)0x00646D90;
         private IntPtr baseAddressGun11 = (IntPtr)0x00646D4C;
         private IntPtr baseAddressCar11 = (IntPtr)0x006BC7C0;
+        private IntPtr baseAddressCamera11 = (IntPtr)0x646D4C;
         //----------------------------------------------------
 
         //1.2----------------------------------------------------
         private IntPtr baseAddressMission12 = (IntPtr)0x0063788C;
         private IntPtr baseAddressGun12 = (IntPtr)0x00647E1C;
         private IntPtr baseAddressCar12 = (IntPtr)0x006BD890;
+        private IntPtr baseAddressCamera12 = (IntPtr)0x647E1C;
         //-------------------------------------------------------
 
         private void AfterTimer(object sender, EventArgs e)
@@ -52,46 +57,24 @@ namespace MafiaRPC
 
             if (processlist.Length != 0)
             {
+                MAFIA_VERSION = Mafia.GetVersion.GetGameVersion(null);
 
-                String result = ":(";
-                foreach (Process p in processlist)
-                {
-                    result = p.MainModule.FileName;
-                    break;
-                }
-
-                if (result.Contains("Game.exe"))
-                {
-                    result = result.Remove(result.IndexOf("Game.exe"));
-                    result = result + "log.txt";
-                    string log = File.ReadAllText(result);
-
-                    if (log.Contains("GetVer:384"))
+                if (MAFIA_VERSION == "1.0")
                     {
                         MAFIA_VERSION = "1.0";
                         Mafia10();
                     }
 
-                    if (log.Contains("GetVer:393"))
-                    {
-                        MAFIA_VERSION = "1.1";
-                        Mafia11();
-                    }
-
-                    if (log.Contains("GetVer:395"))
-                    {
-                        MAFIA_VERSION = "1.2";
-                        Mafia12();
-                    }
+                if (MAFIA_VERSION == "1.1")
+                {
+                    MAFIA_VERSION = "1.1";
+                    Mafia11();
                 }
 
-                else
+                if (MAFIA_VERSION == "1.2")
                 {
-                    timer1.Stop();
-                    MessageBox.Show("Wrong path to the game", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    label1.Text = string.Empty;
-                    button1.Text = "Activate";
-                    DiscordRpc.Shutdown();
+                    MAFIA_VERSION = "1.2";
+                    Mafia12();
                 }
             }
 
@@ -134,9 +117,15 @@ namespace MafiaRPC
                 baseAddressCar = (IntPtr)0x0067A4D8;
                 baseAddressCar = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar), 0x48);
 
+                baseAddressCamera = (IntPtr)0x6F9464;
+                baseAddressCamera = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCamera), 0x5C);
+
                 hp = memory.ReadInt32((IntPtr)0x00661538);
                 mission = memory.ReadStringASCII(baseAddressMission, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun);
+                Camera = memory.ReadInt32((IntPtr)baseAddressCamera);
+                InCarSpeed = memory.ReadFloat((IntPtr)0x66149C);
+                InCarSpeedInt = Convert.ToInt32(InCarSpeed);
                 CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar);
 
                 //-----------------------------------------------------------------------------------
@@ -177,9 +166,15 @@ namespace MafiaRPC
                 baseAddressCar11 = (IntPtr)0x006BC7C0;
                 baseAddressCar11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar11), 0x30);
 
+                baseAddressCamera11 = (IntPtr)0x646D4C;
+                baseAddressCamera11 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCamera11), 0x5C);
+
                 hp = memory.ReadInt32((IntPtr)0x006C2AC0);
                 mission = memory.ReadStringASCII(baseAddressMission11, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun11);
+                Camera = memory.ReadInt32((IntPtr)baseAddressCamera11);
+                InCarSpeed = memory.ReadFloat((IntPtr)0x6C2A24);
+                InCarSpeedInt = Convert.ToInt32(InCarSpeed);
                 CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar11);
 
                 //-----------------------------------------------------------------------------------
@@ -221,9 +216,15 @@ namespace MafiaRPC
                 baseAddressCar12 = (IntPtr)0x006BD890;
                 baseAddressCar12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCar12), 0x30);
 
+                baseAddressCamera12 = (IntPtr)0x647E1C;
+                baseAddressCamera12 = IntPtr.Add((IntPtr)memory.ReadInt32(baseAddressCamera12), 0x5C);
+
                 hp = memory.ReadInt32((IntPtr)0x006C3B90);
                 mission = memory.ReadStringASCII(baseAddressMission12, 20);
                 gun = memory.ReadInt32((IntPtr)baseAddressGun12);
+                Camera = memory.ReadInt32((IntPtr)baseAddressCamera12);
+                InCarSpeed = memory.ReadFloat((IntPtr)0x6C3AF4);
+                InCarSpeedInt = Convert.ToInt32(InCarSpeed);
                 CarcyclopediaID = memory.ReadInt32((IntPtr)baseAddressCar12);
 
                 //-----------------------------------------------------------------------------------
@@ -384,6 +385,42 @@ namespace MafiaRPC
                             this.presence.state = hp.ToString() + " HP";
                             break;
                     }
+
+                //CHECK CAMERA
+                switch (Camera)
+                {
+                    case 7:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 8:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 9:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 12:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 13:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 14:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)";
+                        break;
+
+                    case 15:
+                        this.presence.state = hp.ToString() + " HP" + ", " + "In Car" + " (" + InCarSpeedInt.ToString() + " kph)" + " GTA Camera ;) it looks like CE your best friend";
+                        break;
+
+                    case 22:
+                        this.presence.state = "Watching a cutscene";
+                        break;
+                }
 
                 // CHECK MISSION      
                 //-----------------------------------------------------------------------------------
@@ -1013,7 +1050,7 @@ namespace MafiaRPC
                             break;
 
                         case 10:
-                            this.presence.state = "Lookin' at Bolt Model B Deliviry";
+                            this.presence.state = "Lookin' at Bolt Model B Delivery";
                             break;
 
                         case 11:

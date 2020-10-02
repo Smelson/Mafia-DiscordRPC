@@ -5,98 +5,98 @@ namespace MafiaRPC.DiscordRpcDemo
 {
     class DiscordRpc
     {
-            [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Initialize")]
-            public static extern void Initialize(string applicationId, ref DiscordRpc.EventHandlers handlers, bool autoRegister, string optionalSteamId);
+        [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Initialize")]
+        public static extern void Initialize(string applicationId, ref DiscordRpc.EventHandlers handlers, bool autoRegister, string optionalSteamId);
 
 
-            [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_RunCallbacks")]
-            public static extern void RunCallbacks();
+        [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_RunCallbacks")]
+        public static extern void RunCallbacks();
 
 
-            [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Shutdown")]
-            public static extern void Shutdown();
+        [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_Shutdown")]
+        public static extern void Shutdown();
 
 
-            [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_UpdatePresence")]
-            public static extern void UpdatePresence(ref DiscordRpc.RichPresence presence);
+        [DllImport("discord-rpc-w32.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Discord_UpdatePresence")]
+        public static extern void UpdatePresence(ref DiscordRpc.RichPresence presence);
 
-            internal static void Initialize(string v1, ref object handlers, bool v2, object p)
-            {
-                throw new NotImplementedException();
-            }
+        internal static void Initialize(string v1, ref object handlers, bool v2, object p)
+        {
+            throw new NotImplementedException();
+        }
 
-            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void DisconnectedCallback(int errorCode, string message);
-
-
-            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void ErrorCallback(int errorCode, string message);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void DisconnectedCallback(int errorCode, string message);
 
 
-            public struct EventHandlers
-            {
-
-                public DiscordRpc.ReadyCallback readyCallback;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void ErrorCallback(int errorCode, string message);
 
 
-                public DiscordRpc.DisconnectedCallback disconnectedCallback;
+        public struct EventHandlers
+        {
+
+            public DiscordRpc.ReadyCallback readyCallback;
 
 
-                public DiscordRpc.ErrorCallback errorCallback;
-            }
+            public DiscordRpc.DisconnectedCallback disconnectedCallback;
 
 
-            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void ReadyCallback();
+            public DiscordRpc.ErrorCallback errorCallback;
+        }
 
 
-            [Serializable]
-            public struct RichPresence
-            {
-
-                public string state;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void ReadyCallback();
 
 
-                public string details;
+        [Serializable]
+        public struct RichPresence
+        {
+
+            public string state;
 
 
-                public long startTimestamp;
+            public string details;
 
 
-                public long endTimestamp;
+            public long startTimestamp;
 
 
-                public string largeImageKey;
+            public long endTimestamp;
 
 
-                public string largeImageText;
+            public string largeImageKey;
 
 
-                public string smallImageKey;
+            public string largeImageText;
 
 
-                public string smallImageText;
+            public string smallImageKey;
 
 
-                public string partyId;
+            public string smallImageText;
 
 
-                public int partySize;
+            public string partyId;
 
 
-                public int partyMax;
+            public int partySize;
 
 
-                public string matchSecret;
+            public int partyMax;
 
 
-                public string joinSecret;
+            public string matchSecret;
 
 
-                public string spectateSecret;
+            public string joinSecret;
 
 
-                public bool instance;
-            }
+            public string spectateSecret;
+
+
+            public bool instance;
+        }
     }
 }
